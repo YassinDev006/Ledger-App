@@ -24,3 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Ledger"
 include(":app")
+include(":Data")
+include(":Domain")
+include(":Presentation")
+include(":core")
