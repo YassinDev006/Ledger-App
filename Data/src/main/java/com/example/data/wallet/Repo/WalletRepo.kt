@@ -4,9 +4,13 @@ import ResultModel.DataBaseErrors
 import ResultModel.Result
 import android.util.Log
 import com.example.data.wallet.DataSource.DAOs.WalletDao
+import com.example.data.wallet.DataSource.DataBaseEntitis.WalletEntity
 import com.example.data.wallet.mapper.toDataBaseError
+import com.example.data.wallet.mapper.toWallet
 import com.example.data.wallet.mapper.toWalletEntity
 import com.example.domain.wallet.Entities.Wallet
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class WalletRepo @Inject constructor(
@@ -27,6 +31,26 @@ class WalletRepo @Inject constructor(
             return Result.Error(errorType)
 
         }
+    }
+
+    fun getWallets() : Result<Flow<List<Wallet>>, DataBaseErrors>{
+        return try {
+            val data = walletDao.getWallets()
+
+            Result.Success(
+                data.map { WalletList ->
+                    WalletList.map { it.toWallet() }
+                }
+            )
+
+        }catch (e : Exception){
+            val errorType = e.toDataBaseError()
+
+            Result.Error(errorType)
+        }
+
 
     }
+
+
 }

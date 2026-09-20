@@ -1,6 +1,7 @@
 package com.example.ledger
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.presentation.Home.HomeScreen
@@ -33,14 +34,23 @@ object HomeDestination
 @Serializable
 object AddTransactionDestination
 
-fun NavGraphBuilder.walletGraph(){
+fun NavGraphBuilder.walletGraph(navController : NavHostController){
     navigation<WalletGraph>(startDestination = WalletDestination ){
 
         composable<WalletDestination> {
-            WalletScreen()
+            WalletScreen(onClickItem = {}){
+                navController.navigate(AddWalletDestination)
+
+            }
         }
         composable<AddWalletDestination> {
-            AddWalletScreen()
+            AddWalletScreen{
+                navController.navigate(WalletDestination){
+                    popUpTo(AddWalletDestination){
+                        inclusive = true
+                    }
+                }
+            }
         }
 
     }

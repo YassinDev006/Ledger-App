@@ -18,12 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
     title : String,
-    icon : ImageVector,
+    icon : ImageVector? = null,
     onClickIcon : () -> Unit
 ){
     CenterAlignedTopAppBar(
@@ -31,17 +32,22 @@ fun TopAppBar(
         title = {
             Text(
                 text = title,
+                fontSize = 30.sp
             )
         },
         navigationIcon = {
-            IconButton(
-                onClick = onClickIcon
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "",
-                    modifier = Modifier.padding(10.dp)
-                )
+
+            if(icon != null) {
+
+                IconButton(
+                    onClick = onClickIcon
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "",
+                        modifier = Modifier.padding(10.dp)
+                    )
+                }
             }
         },
         colors = TopAppBarColors(

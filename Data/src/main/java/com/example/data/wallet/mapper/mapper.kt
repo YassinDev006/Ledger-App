@@ -14,13 +14,14 @@ fun Double.toEntity(): Long = (this * 100).toLong()
 
 
 fun WalletEntity.toWallet(): Wallet = Wallet(
-    name = name,
-    amount = amount.toDomain()
+    id = this.id,
+    name = this.name,
+    amount = this.amount.toDomain()
 )
 
 fun Wallet.toWalletEntity(): WalletEntity = WalletEntity(
-    name = name,
-    amount = amount.toEntity(),
+    name = this.name,
+    amount = this.amount.toEntity(),
     id = 0
 )
 
