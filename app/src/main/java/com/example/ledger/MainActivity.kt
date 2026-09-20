@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ledger.ui.theme.LedgerTheme
 import com.example.presentation.DashBoard.DashBoardScreen
 import com.example.presentation.splash.SplashScreen
+import com.example.presentation.wallet.AddWalletScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,18 +37,22 @@ class MainActivity : ComponentActivity() {
                     it.hasRoute(SplashDestination::class)
                 } == false
 
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        if (showNavBar) {
-                            BottomNavigationBar(navController)
-                        }
-                    }
-                    ) {paddingValues ->
 
-                    Ledger(modifier = Modifier.padding(paddingValues),navController)
 
-                }
+                AddWalletScreen()
+
+//                Scaffold(
+//                    modifier = Modifier.fillMaxSize(),
+//                    bottomBar = {
+//                        if (showNavBar) {
+//                            BottomNavigationBar(navController)
+//                        }
+//                    }
+//                    ) {paddingValues ->
+//
+//                    Ledger(modifier = Modifier.padding(paddingValues),navController)
+//
+//                }
             }
         }
     }

@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":Data"))
     val lifecycle_version = "2.11.0"
     val arch_version = "2.2.0"
 
@@ -39,6 +40,12 @@ dependencies {
     // Dagger Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    //icons
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    // hiltViewModel
+    implementation(libs.androidx.hilt.navigation.compose)
 
 
 

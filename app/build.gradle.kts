@@ -44,7 +44,6 @@ dependencies {
 
 
     // navigation compose
-    val nav_version = "2.10.0"
     implementation(libs.androidx.navigation.compose)
 
 

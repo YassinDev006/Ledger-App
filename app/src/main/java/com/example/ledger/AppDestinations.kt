@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.presentation.Home.HomeScreen
+import com.example.presentation.wallet.AddWalletScreen
 import com.example.presentation.wallet.WalletScreen
 import kotlinx.serialization.Serializable
 
@@ -38,7 +39,9 @@ fun NavGraphBuilder.walletGraph(){
         composable<WalletDestination> {
             WalletScreen()
         }
-        composable<AddWalletDestination> {  }
+        composable<AddWalletDestination> {
+            AddWalletScreen()
+        }
 
     }
 }
