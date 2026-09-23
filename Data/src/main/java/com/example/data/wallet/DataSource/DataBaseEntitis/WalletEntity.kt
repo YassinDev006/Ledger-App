@@ -9,4 +9,5 @@ data class WalletEntity (
     @PrimaryKey(autoGenerate = true) val id : Int,
     @ColumnInfo val name : String,
     @ColumnInfo val amount : Long,
+    @ColumnInfo val image : String?
 )

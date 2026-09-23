@@ -20,8 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ledger.ui.theme.LedgerTheme
 import com.example.presentation.DashBoard.DashBoardScreen
 import com.example.presentation.splash.SplashScreen
-import com.example.presentation.wallet.AddWalletScreen
-import com.example.presentation.wallet.Components.WalletTab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

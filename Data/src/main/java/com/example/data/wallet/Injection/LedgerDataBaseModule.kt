@@ -26,8 +26,7 @@ class LedgerDataBaseModule {
         return Room.databaseBuilder<LedgerDataBase>(
             context = context,
             name = "Ledger_DataBase"
-        ).build()
-
+        ).fallbackToDestructiveMigration(true).build()
     }
 
     @Provides

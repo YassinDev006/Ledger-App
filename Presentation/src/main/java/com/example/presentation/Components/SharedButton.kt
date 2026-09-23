@@ -1,14 +1,12 @@
-package com.example.presentation.comonents
+package com.example.presentation.Components
 
-import android.widget.Button
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -30,7 +28,7 @@ fun SharedButton(
 ) {
 
     Button(
-        modifier = modifier.padding(top = 100.dp).fillMaxWidth(0.8f).height(50.dp),
+        modifier = modifier.padding(top = 50.dp).fillMaxWidth().padding(horizontal = 12.dp).height(50.dp),
         onClick = onClickButton,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
@@ -38,13 +36,15 @@ fun SharedButton(
             containerColor = Color.Black
         )
     ) {
-        Row() {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
 
             if (icon != null) {
                 Icon(
                     imageVector = icon,
                     contentDescription = "",
-                    tint = Color.Black
+                    tint = Color.White
                 )
             }
 

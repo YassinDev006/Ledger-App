@@ -7,7 +7,7 @@ import com.example.data.wallet.DataSource.DataBaseEntitis.TransactionEntity
 import com.example.data.wallet.DataSource.DataBaseEntitis.WalletEntity
 
 
-@Database(entities = [WalletEntity::class, TransactionEntity::class], version = 1, exportSchema = false)
+@Database(entities = [WalletEntity::class, TransactionEntity::class], version = 2, exportSchema = false)
 abstract class LedgerDataBase : RoomDatabase(){
 
     abstract fun walletDao() : WalletDao

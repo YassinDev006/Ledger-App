@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.presentation.Home.HomeScreen
-import com.example.presentation.wallet.AddWalletScreen
-import com.example.presentation.wallet.WalletScreen
+import com.example.presentation.wallet.AddWalletScreen.AddWalletScreen
+import com.example.presentation.wallet.WalletScreen.WalletScreen
 import kotlinx.serialization.Serializable
 
 

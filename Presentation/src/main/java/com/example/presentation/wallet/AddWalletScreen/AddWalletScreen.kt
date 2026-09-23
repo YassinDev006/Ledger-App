@@ -1,17 +1,17 @@
-package com.example.presentation.wallet
+package com.example.presentation.wallet.AddWalletScreen
 
+import AddWalletEditText
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,18 +20,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.domain.wallet.Entities.Wallet
-import com.example.presentation.comonents.LabelText
-import com.example.presentation.comonents.SharedButton
-import com.example.presentation.comonents.TopAppBar
+import com.example.presentation.Components.LabelText
+import com.example.presentation.Components.SharedButton
+import com.example.presentation.Components.TopAppBar
+import com.example.presentation.wallet.Components.UploadImage
+import com.example.presentation.wallet.WalletViewModel
 
 @Composable
 fun AddWalletScreen(
@@ -55,6 +55,11 @@ fun AddWalletScreen(
             mutableStateOf("")
         }
 
+        var selectedImage by remember{
+            mutableStateOf<Uri?>(null)
+        }
+
+
         var walletName by remember {
             mutableStateOf("")
         }
@@ -67,12 +72,12 @@ fun AddWalletScreen(
                 .padding(paddingValues)
                 .fillMaxSize()
                 .background(color = Color.White),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ){
             HorizontalDivider(thickness = 1.dp)
 
 
-            LabelText(text = "Budget Amount", modifier = Modifier.padding(top = 90.dp, bottom = 16.dp))
+            LabelText(text = "Budget Amount", modifier = Modifier.padding(start = 12.dp,top = 60.dp, bottom = 16.dp))
 
             AddWalletEditText(
                 text = budgetAmount,
@@ -87,7 +92,7 @@ fun AddWalletScreen(
                 budgetAmount = it
             }
 
-            LabelText(text = "Wallet Name", modifier = Modifier.padding(top = 40.dp, bottom = 16.dp))
+            LabelText(text = "Wallet Name", modifier = Modifier.padding(start = 12.dp,top = 40.dp, bottom = 16.dp))
 
             AddWalletEditText(
                 text = walletName,
@@ -101,6 +106,17 @@ fun AddWalletScreen(
             }
 
 
+            LabelText(text = "Icon", modifier = Modifier.padding(start = 12.dp,top = 30.dp))
+
+
+            UploadImage(
+                modifier = Modifier.size(100.dp),
+                image = selectedImage,
+            ) {
+                selectedImage = it
+            }
+
+
 
             SharedButton(
                 text = "Save Budget",
@@ -110,78 +126,12 @@ fun AddWalletScreen(
                     Wallet(
                         name = walletName,
                         amount = budgetAmount.toDouble(),
-                        id = 0
+                        id = 0,
+                        image = selectedImage
                     )
                 )
                 onNavigation()
-
             }
-
         }
     }
 }
-
-
-@Composable
-fun AddWalletEditText(
-    text: String,
-    prefix : String? = null,
-    keyboardType: KeyboardType,
-    imeAction: ImeAction,
-    placeHolder : String,
-    placeHolderSize : Int,
-    placeHolderPosition : TextAlign,
-    onValueChanged : (text : String) -> Unit,
-
-) {
-
-    OutlinedTextField(
-        modifier = Modifier.padding(horizontal = 12.dp),
-        value = text,
-        onValueChange = onValueChanged,
-        placeholder = {
-            Text(
-                text = placeHolder,
-                fontSize = placeHolderSize.sp,
-                textAlign = placeHolderPosition
-            )
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType,
-            imeAction = imeAction
-
-        ),
-        textStyle = TextStyle(
-            fontSize = 40.sp,
-        ),
-        prefix = {
-            Text(
-                text = prefix?:"",
-                fontSize = 40.sp
-            )
-        },
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-
-            focusedContainerColor = Color.White,
-            unfocusedContainerColor = Color.White,
-
-            focusedBorderColor = Color.DarkGray,
-            unfocusedBorderColor = Color.DarkGray,
-
-            focusedPlaceholderColor = Color.Transparent,
-            unfocusedPlaceholderColor = Color.DarkGray,
-
-            focusedPrefixColor = Color.Black,
-            unfocusedPrefixColor = Color.Black
-
-
-        )
-
-
-
-    )
-
-}
-

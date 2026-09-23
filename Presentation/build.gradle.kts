@@ -48,6 +48,9 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
 
+    //coil
+    implementation(libs.coil.compose)
+
 
 
     implementation(project(":Domain"))
