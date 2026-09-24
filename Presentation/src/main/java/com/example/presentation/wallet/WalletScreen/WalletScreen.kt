@@ -27,20 +27,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.domain.wallet.Entities.Wallet
 import com.example.presentation.Components.LabelText
 import com.example.presentation.Components.TopAppBar
 import com.example.presentation.wallet.Components.WalletTab
+import com.example.presentation.wallet.WalletNavigation.WalletNavigation
 import com.example.presentation.wallet.WalletViewModel
 
 @Composable
 fun WalletScreen(
-    onClickItem : () -> Unit,
+    onClickItem : (Wallet) -> Unit,
     onNavigation : () -> Unit
 ) {
 
     val walletViewModel = hiltViewModel<WalletViewModel>()
 
-    val wallet by walletViewModel.wallet.collectAsStateWithLifecycle()
+    val wallets by walletViewModel.wallets.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         walletViewModel.getWallet()
@@ -104,13 +106,13 @@ fun WalletScreen(
 
 
             ) {
-                items(wallet){ item ->
+                items(wallets){ item ->
                     WalletTab(
                         walletName = item.name,
                         amount = item.amount,
                         image = item.image
                     ) {
-                        onClickItem()
+                        onClickItem(item)
                     }
                 }
             }

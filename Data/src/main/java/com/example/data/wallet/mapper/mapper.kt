@@ -24,7 +24,7 @@ fun WalletEntity.toWallet(): Wallet = Wallet(
 fun Wallet.toWalletEntity(): WalletEntity = WalletEntity(
     name = this.name,
     amount = this.amount.toEntity(),
-    id = 0,
+    id = this.id,
     image = this.image.toString()
 )
 

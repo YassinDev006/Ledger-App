@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,12 +32,12 @@ import com.example.presentation.Components.LabelText
 import com.example.presentation.Components.SharedButton
 import com.example.presentation.Components.TopAppBar
 import com.example.presentation.wallet.Components.UploadImage
+import com.example.presentation.wallet.WalletNavigation.WalletNavigation
 import com.example.presentation.wallet.WalletViewModel
 
 @Composable
 fun AddWalletScreen(
     onNavigation : () -> Unit
-
 ) {
 
 
@@ -47,6 +48,7 @@ fun AddWalletScreen(
             }
         }
     ) {paddingValues ->
+
 
 
         val walletViewModel = hiltViewModel<WalletViewModel>()
@@ -65,6 +67,15 @@ fun AddWalletScreen(
         }
 
         val isLoading by walletViewModel.isLoading.collectAsStateWithLifecycle()
+
+        LaunchedEffect(Unit) {
+            walletViewModel.navigate.collect {
+                when(it){
+                    WalletNavigation.NavigateToWalletScreen -> onNavigation()
+                    else -> {}
+                }
+            }
+        }
 
 
         Column(
@@ -130,7 +141,6 @@ fun AddWalletScreen(
                         image = selectedImage
                     )
                 )
-                onNavigation()
             }
         }
     }

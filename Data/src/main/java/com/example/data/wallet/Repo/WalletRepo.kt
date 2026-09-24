@@ -54,7 +54,8 @@ class WalletRepo @Inject constructor(
 
     suspend fun updateWallet(wallet : Wallet) : Result<Unit, DataBaseErrors>{
         return try {
-            val result = walletDao.updateWallet(wallet.toWalletEntity())
+
+            walletDao.updateWallet(wallet.toWalletEntity())
 
             Result.Success(data = Unit)
 
@@ -64,6 +65,23 @@ class WalletRepo @Inject constructor(
             Result.Error(error = errorType)
         }
 
+    }
+
+    suspend fun deleteWallet(wallet : Wallet) : Result<Unit, DataBaseErrors>{
+        return try {
+
+            walletDao.deleteWallet(wallet.toWalletEntity())
+
+             Result.Success(data = Unit)
+
+
+        }catch (e : Exception){
+
+            val errorType = e.toDataBaseError()
+
+             Result.Error(errorType)
+
+        }
     }
 
 
