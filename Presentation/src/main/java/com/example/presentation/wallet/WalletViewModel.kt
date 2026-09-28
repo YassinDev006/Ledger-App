@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.wallet.Repo.WalletRepo
-import com.example.domain.wallet.Entities.Wallet
+import com.example.domain.domain.Entities.Validation
+import com.example.domain.domain.Entities.Wallet
+import com.example.domain.domain.useCases.ValidationUseCase
 import com.example.presentation.wallet.WalletNavigation.WalletNavigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletViewModel @Inject constructor(
-    private val walletRepo: WalletRepo
+    private val walletRepo: WalletRepo,
+    private val validationUseCase: ValidationUseCase
 ) : ViewModel() {
 
     private var _wallets = MutableStateFlow<List<Wallet>>(emptyList())
@@ -32,6 +35,13 @@ class WalletViewModel @Inject constructor(
 
     private var _navigate = MutableSharedFlow<WalletNavigation>()
     val navigate = _navigate.asSharedFlow()
+
+    private var _validationType = MutableStateFlow<Validation>(Validation.Nothing)
+
+    val validationType = _validationType.asStateFlow()
+
+
+
 
 
 
@@ -52,23 +62,30 @@ class WalletViewModel @Inject constructor(
                 }.launchIn(viewModelScope)
             }
         }
-
     }
 
 
     fun updateWallet(wallet: Wallet){
-        _isLoading.value = true
-        viewModelScope.launch {
-            when(val result = walletRepo.updateWallet(wallet)){
-                is Result.Error -> {
-                    logDataBaseErrors(errorType = result.error)
+
+        val isValid = validate(wallet) is Validation.Valid
+
+
+        if (isValid) {
+            _isLoading.value = true
+
+            viewModelScope.launch {
+                when (val result = walletRepo.updateWallet(wallet)) {
+                    is Result.Error -> {
+                        logDataBaseErrors(errorType = result.error)
+                    }
+
+                    is Result.Success -> {
+                        Log.i("UpdateWallet", "updateWallet: wallet updated")
+                        _navigate.emit(WalletNavigation.NavigateToWalletScreen)
+                    }
                 }
-                is Result.Success -> {
-                    Log.i("UpdateWallet", "updateWallet: wallet updated")
-                    _navigate.emit(WalletNavigation.NavigateToWalletScreen)
-                }
+                _isLoading.value = false
             }
-            _isLoading.value = false
         }
     }
 
@@ -93,20 +110,35 @@ class WalletViewModel @Inject constructor(
 
     fun addWallet(wallet: Wallet){
 
-        _isLoading.value = true
+        val isValid = validate(wallet) is Validation.Valid
 
-        viewModelScope.launch {
-            when(val result = walletRepo.addWallet(wallet)){
-                is Result.Error -> {
-                    logDataBaseErrors(errorType = result.error)
+        if (isValid){
+
+            _isLoading.value = true
+
+            viewModelScope.launch {
+                when (val result = walletRepo.addWallet(wallet)) {
+                    is Result.Error -> {
+                        logDataBaseErrors(errorType = result.error)
+                    }
+
+                    is Result.Success -> {
+                        Log.i("WalletViewModel", "addWallet: the wallet added to the dataBase  ")
+                        _navigate.emit(WalletNavigation.NavigateToWalletScreen)
+                    }
                 }
-                is Result.Success -> {
-                    Log.i("WalletViewModel", "addWallet: the wallet added to the dataBase  ")
-                    _navigate.emit(WalletNavigation.NavigateToWalletScreen)
-                }
+                _isLoading.value = false
             }
-            _isLoading.value = false
         }
+
+    }
+
+    private fun validate(wallet: Wallet) : Validation{
+        val result = validationUseCase.invoke(wallet)
+
+        _validationType.update { result }
+
+        return result
 
     }
 

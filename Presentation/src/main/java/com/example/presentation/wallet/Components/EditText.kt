@@ -22,6 +22,8 @@ fun AddWalletEditText(
     placeHolder : String,
     placeHolderSize : Int,
     placeHolderPosition : TextAlign,
+    isError : Boolean = false,
+    supportingText : String = "",
     onValueChanged : (text : String) -> Unit,
 
     ) {
@@ -49,6 +51,12 @@ fun AddWalletEditText(
             Text(
                 text = prefix?:"",
                 fontSize = 40.sp
+            )
+        },
+        isError = isError,
+        supportingText = {
+            Text(
+                text = supportingText,
             )
         },
         colors = OutlinedTextFieldDefaults.colors(

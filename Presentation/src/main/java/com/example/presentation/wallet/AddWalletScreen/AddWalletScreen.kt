@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -27,7 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.domain.wallet.Entities.Wallet
+import com.example.domain.domain.Entities.Validation
+import com.example.domain.domain.Entities.Wallet
 import com.example.presentation.Components.LabelText
 import com.example.presentation.Components.SharedButton
 import com.example.presentation.Components.TopAppBar
@@ -56,6 +56,8 @@ fun AddWalletScreen(
         var budgetAmount by remember {
             mutableStateOf("")
         }
+
+        val validationType by walletViewModel.validationType.collectAsStateWithLifecycle()
 
         var selectedImage by remember{
             mutableStateOf<Uri?>(null)
@@ -97,8 +99,9 @@ fun AddWalletScreen(
                 imeAction = ImeAction.Done,
                 placeHolder = "0.00",
                 placeHolderSize = 40,
-                placeHolderPosition = TextAlign.Center
-
+                placeHolderPosition = TextAlign.Center,
+                isError = validationType == Validation.WalletAmountInValid,
+                supportingText = "Amount must contain only numbers"
             ) {
                 budgetAmount = it
             }
@@ -111,7 +114,9 @@ fun AddWalletScreen(
                 imeAction = ImeAction.Done,
                 placeHolder = "Enter Wallet Name",
                 placeHolderSize = 20,
-                placeHolderPosition = TextAlign.Left
+                placeHolderPosition = TextAlign.Left,
+                isError = validationType == Validation.WalletNameInValid,
+                supportingText = "Wallet name cannot be empty"
             ) {
                 walletName = it
             }

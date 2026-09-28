@@ -7,12 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -38,7 +34,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.domain.wallet.Entities.Wallet
+import com.example.domain.domain.Entities.Validation
+import com.example.domain.domain.Entities.Wallet
 import com.example.presentation.Components.LabelText
 import com.example.presentation.Components.SharedButton
 import com.example.presentation.Components.TopAppBar
@@ -78,6 +75,8 @@ fun UpdateWalletScreen(
             mutableStateOf(wallet.name)
         }
 
+        val validationType by walletViewModel.validationType.collectAsStateWithLifecycle()
+
         LaunchedEffect(Unit) {
             walletViewModel.navigate.collect {
                 when(it){
@@ -110,7 +109,9 @@ fun UpdateWalletScreen(
                 imeAction = ImeAction.Done,
                 placeHolder = "Enter Wallet Name",
                 placeHolderSize = 20,
-                placeHolderPosition = TextAlign.Left
+                placeHolderPosition = TextAlign.Left,
+                isError = validationType == Validation.WalletNameInValid,
+                supportingText = "Wallet name cannot be empty"
             ) {
                 walletName = it
             }

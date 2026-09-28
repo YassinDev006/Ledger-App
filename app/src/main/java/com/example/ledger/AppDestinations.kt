@@ -11,7 +11,7 @@ import com.example.presentation.wallet.AddWalletScreen.AddWalletScreen
 import com.example.presentation.wallet.UpdateWalletScreen.UpdateWalletScreen
 import com.example.presentation.wallet.WalletScreen.WalletScreen
 import kotlinx.serialization.Serializable
-import com.example.domain.wallet.Entities.Wallet
+import com.example.domain.domain.Entities.Wallet
 
 
 

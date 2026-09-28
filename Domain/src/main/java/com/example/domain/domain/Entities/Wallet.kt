@@ -1,4 +1,4 @@
-package com.example.domain.wallet.Entities
+package com.example.domain.domain.Entities
 
 import android.net.Uri
 

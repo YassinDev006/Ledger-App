@@ -1,7 +1,5 @@
 package com.example.data.wallet.DataSource.DAOs
 
-import ResultModel.DataBaseErrors
-import ResultModel.Result
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.data.wallet.DataSource.DataBaseEntitis.WalletEntity
-import com.example.domain.wallet.Entities.Wallet
 import kotlinx.coroutines.flow.Flow
 
 @Dao

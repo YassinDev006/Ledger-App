@@ -3,8 +3,8 @@ package com.example.data.wallet.DataSource.DataBaseEntitis
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.domain.wallet.Entities.CategoryType
-import com.example.domain.wallet.Entities.TransactionType
+import com.example.domain.domain.Entities.CategoryType
+import com.example.domain.domain.Entities.TransactionType
 
 @Entity(tableName = "transactions")
 data class TransactionEntity(

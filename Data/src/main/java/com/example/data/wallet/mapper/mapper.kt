@@ -1,7 +1,7 @@
 package com.example.data.wallet.mapper
 
 import com.example.data.wallet.DataSource.DataBaseEntitis.WalletEntity
-import com.example.domain.wallet.Entities.Wallet
+import com.example.domain.domain.Entities.Wallet
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDiskIOException
 import android.database.sqlite.SQLiteFullException
