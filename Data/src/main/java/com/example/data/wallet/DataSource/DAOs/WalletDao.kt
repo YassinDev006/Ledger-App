@@ -28,7 +28,7 @@ interface WalletDao {
     fun getWallets() : Flow<List<WalletEntity>>
 
     @Query("SELECT * FROM wallets WHERE id = :id")
-    fun getWalletId(id : Int) : Flow<WalletEntity>
+    fun getWalletById(id : Int) : Flow<WalletEntity>
 
 
 

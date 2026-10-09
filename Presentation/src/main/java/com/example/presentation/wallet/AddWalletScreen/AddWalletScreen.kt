@@ -30,9 +30,9 @@ import com.example.domain.domain.Entities.Validation
 import com.example.domain.domain.Entities.Wallet
 import com.example.presentation.Components.LabelText
 import com.example.presentation.Components.SharedButton
-import com.example.presentation.Components.TopAppBar
+import com.example.presentation.Components.LedgerTopAppBar
 import com.example.presentation.wallet.Components.UploadImage
-import com.example.presentation.wallet.WalletNavigation.WalletNavigation
+import com.example.presentation.wallet.utils.WalletNavigation
 import com.example.presentation.wallet.WalletViewModel
 
 @Composable
@@ -43,7 +43,7 @@ fun AddWalletScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = "Add Budget", icon = Icons.Filled.Close){
+            LedgerTopAppBar(title = "Add Budget", icon = Icons.Filled.Close){
                 onNavigation()
             }
         }

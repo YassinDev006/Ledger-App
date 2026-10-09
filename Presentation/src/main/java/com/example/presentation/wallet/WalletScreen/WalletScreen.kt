@@ -29,7 +29,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.domain.domain.Entities.Wallet
 import com.example.presentation.Components.LabelText
-import com.example.presentation.Components.TopAppBar
+import com.example.presentation.Components.LedgerFab
+import com.example.presentation.Components.LedgerTopAppBar
 import com.example.presentation.wallet.Components.WalletTab
 import com.example.presentation.wallet.WalletViewModel
 
@@ -49,7 +50,7 @@ fun WalletScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            LedgerTopAppBar(
                 title = "Wallet"
             ) {
 
@@ -57,20 +58,9 @@ fun WalletScreen(
         },
         floatingActionButtonPosition = FabPosition.End ,
         floatingActionButton = {
-            SmallFloatingActionButton(
-                onClick = onNavigation,
-                containerColor = Color.Black,
-                contentColor = Color.White,
-                shape = FloatingActionButtonDefaults.largeShape,
-                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 16.dp),
-                modifier = Modifier.padding(bottom = 80.dp).size(60.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Add,
-                    contentDescription = ""
-                )
+            LedgerFab {
+                onNavigation()
             }
-
         }
     ){ innerPadding ->
 

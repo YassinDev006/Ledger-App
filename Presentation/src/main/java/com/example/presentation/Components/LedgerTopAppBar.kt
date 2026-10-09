@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(
+fun LedgerTopAppBar(
     title : String,
     icon : ImageVector? = null,
-    onClickIcon : () -> Unit
+    onClickIcon : () -> Unit = {}
 ){
     CenterAlignedTopAppBar(
 
