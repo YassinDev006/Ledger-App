@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,11 +41,8 @@ class WalletViewModel @Inject constructor(
 
     val validationType = _validationType.asStateFlow()
 
-
-
-
-
-
+    private var _totalBudget = MutableStateFlow<String>("")
+    val totalBudget = _totalBudget.asStateFlow()
 
     fun getWallet(){
         when(val result = walletRepo.getWallets()){
@@ -130,6 +130,22 @@ class WalletViewModel @Inject constructor(
 
     }
 
+    fun getTotalBudget(){
+        when(val result = walletRepo.getTotalBudget()){
+            is Result.Error -> {
+                logDataBaseErrors(result.error)
+            }
+            is Result.Success -> {
+
+
+                result.data.onEach {
+                    _totalBudget.update { it }
+                    Log.i("WalletViewModel", "retrieved totalBudget: $it  ")
+
+                }.launchIn(viewModelScope)
+            }
+        }
+    }
     private fun validate(wallet: Wallet) : Validation{
         val result = validationUseCase.invoke(wallet)
 

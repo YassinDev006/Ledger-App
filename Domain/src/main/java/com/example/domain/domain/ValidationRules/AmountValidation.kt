@@ -8,9 +8,9 @@ class AmountValidation() : ValidationRule {
     override fun validate(wallet: Wallet): Validation? {
         val walletAmount = wallet.amount
 
-        val regex = Regex("^\\d+(\\.\\d+)?$")
+        val numericRegex = """^\d+(\.\d+)?$""".toRegex()
 
-        if (!regex.matches(walletAmount.toString())) {
+        if (!numericRegex.matches(walletAmount)) {
 
             return Validation.WalletAmountInValid
 

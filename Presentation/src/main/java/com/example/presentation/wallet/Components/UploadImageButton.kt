@@ -5,6 +5,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -85,7 +87,7 @@ fun UploadImage(
     if (isImageSelected) {
         Card(
             shape = RoundedCornerShape(12.dp),
-            modifier = modifier.padding(start = 8.dp).size(100.dp)
+            modifier = modifier.padding(start = 8.dp).size(100.dp).background(Color.White)
         ) {
 
             Box {
@@ -93,7 +95,7 @@ fun UploadImage(
                 AsyncImage(
                     model = image,
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().background(Color.White),
                     contentScale = ContentScale.Crop,
                     onError = {
                         Log.e("COIL", "Failed: $image", it.result.throwable)

@@ -141,7 +141,7 @@ fun AddWalletScreen(
                 walletViewModel.addWallet(
                     Wallet(
                         name = walletName,
-                        amount = budgetAmount.toDouble(),
+                        amount = budgetAmount,
                         id = 0,
                         image = selectedImage
                     )

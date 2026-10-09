@@ -5,6 +5,6 @@ import android.net.Uri
 data class Wallet(
     val id : Int,
     val name : String,
-    val amount : Double,
+    val amount : String,
     val image : Uri?
 )

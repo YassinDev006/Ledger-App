@@ -73,13 +73,13 @@ fun AddWalletEditText(
             unfocusedPlaceholderColor = Color.DarkGray,
 
             focusedPrefixColor = Color.Black,
-            unfocusedPrefixColor = Color.Black
+            unfocusedPrefixColor = Color.Black,
 
+            errorSupportingTextColor = Color.Red,
+            errorContainerColor = Color.White,
+            errorTextColor = Color.Black,
+            errorBorderColor = Color.Red,
 
         )
-
-
-
     )
-
 }

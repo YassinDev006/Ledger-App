@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun WalletTab(
     walletName : String,
-    amount : Double,
+    amount : String,
     image : Uri?,
     onClickCard : () -> Unit
 ) {
@@ -49,7 +49,8 @@ fun WalletTab(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .clickable(onClick = onClickCard),
+            .clickable(onClick = onClickCard)
+            .background(Color.White),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,

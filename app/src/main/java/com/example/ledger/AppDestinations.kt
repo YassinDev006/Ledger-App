@@ -33,7 +33,7 @@ object AddWalletDestination
 data class UpdateWalletDestination(
     val id : Int,
     val name : String,
-    val amount : Double,
+    val amount : String,
     val image : String?
 )
 @Serializable
@@ -95,7 +95,9 @@ fun NavGraphBuilder.homeGraph(){
 
     navigation<HomeGraph>(startDestination = HomeDestination){
         composable<HomeDestination> {
-            HomeScreen()
+            HomeScreen{
+
+            }
         }
         composable<AddTransactionDestination> {
 

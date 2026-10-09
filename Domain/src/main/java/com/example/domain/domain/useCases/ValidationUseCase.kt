@@ -5,12 +5,13 @@ import com.example.domain.domain.Entities.Wallet
 import com.example.domain.domain.ValidationRules.AmountValidation
 import com.example.domain.domain.ValidationRules.ValidationRule
 import com.example.domain.domain.ValidationRules.WalletNameValidation
+import javax.inject.Inject
 
-class ValidationUseCase {
+class ValidationUseCase @Inject constructor() {
 
     private val listOfValidations = listOf(
-        WalletNameValidation(),
-        AmountValidation()
+        AmountValidation(),
+        WalletNameValidation()
     )
 
     fun invoke(wallet : Wallet) : Validation{

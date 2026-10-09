@@ -83,14 +83,15 @@ class WalletRepo @Inject constructor(
         }
     }
 
-    fun getTotalBudget() : Result<Flow<Double?>, DataBaseErrors>{
+    fun getTotalBudget() : Result<Flow<String?>, DataBaseErrors>{
 
          return try {
             val result = walletDao.getTotalBudget()
 
-            Result.Success(result.map {
-                it?.toDomain()
-            })
+
+             Result.Success(result.map {
+                 it?.toDomain()
+             })
 
 
         }catch (e : Exception){
