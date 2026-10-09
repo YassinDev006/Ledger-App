@@ -86,7 +86,7 @@ fun WalletTab(
                     )
 
                     Text(
-                        text = "$${amount}",
+                        text = "$amount L.E",
                         color = Color.Gray,
                         fontSize = 20.sp,
                         modifier = Modifier.padding(start = 12.dp)

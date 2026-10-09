@@ -118,7 +118,7 @@ fun BudgetCard(
             )
 
             Text(
-                text = amount,
+                text = "$amount L.E",
                 color = Color.White,
                 fontSize = 40.sp
             )
