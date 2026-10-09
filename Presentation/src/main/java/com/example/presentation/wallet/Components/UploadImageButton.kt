@@ -5,7 +5,6 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -73,21 +72,27 @@ fun UploadImage(
                 Log.e("URI_PERMISSION", "Could not persist permission", e)
             }
 
-            selectedImage(uri)
             isImageSelected = true
         }
+        selectedImage(uri)
+        Log.i("Uploading Image", "UploadImage: $uri")
     }
 
 
     if (!isImageSelected && !isWalletScreen) {
-        UploadImageButton(modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, top = 12.dp)){
+        UploadImageButton(modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp, top = 12.dp)){
             activityLauncher.launch(arrayOf("image/*"))
         }
     }
     if (isImageSelected) {
         Card(
             shape = RoundedCornerShape(12.dp),
-            modifier = modifier.padding(start = 8.dp).size(100.dp).background(Color.White)
+            modifier = modifier
+                .padding(start = 8.dp)
+                .size(100.dp)
+                .background(Color.White)
         ) {
 
             Box {
@@ -95,7 +100,9 @@ fun UploadImage(
                 AsyncImage(
                     model = image,
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize().background(Color.White),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.White),
                     contentScale = ContentScale.Crop,
                     onError = {
                         Log.e("COIL", "Failed: $image", it.result.throwable)
@@ -108,8 +115,11 @@ fun UploadImage(
                 if (!isWalletScreen) {
 
                     IconButton(
-                        modifier = Modifier.size(16.dp).offset(75.dp, y = (2).dp),
+                        modifier = Modifier
+                            .size(16.dp)
+                            .offset(75.dp, y = (2).dp),
                         onClick = {
+                            selectedImage(null)
                             isImageSelected = false
                         },
                         shape = CircleShape,
