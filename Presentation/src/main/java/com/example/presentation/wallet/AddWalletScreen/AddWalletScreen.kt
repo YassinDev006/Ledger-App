@@ -94,7 +94,7 @@ fun AddWalletScreen(
 
             AddWalletEditText(
                 text = budgetAmount,
-                prefix = "$",
+                suffix = "L.E",
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done,
                 placeHolder = "0.00",

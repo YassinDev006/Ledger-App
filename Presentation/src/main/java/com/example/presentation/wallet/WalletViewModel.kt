@@ -136,12 +136,9 @@ class WalletViewModel @Inject constructor(
                 logDataBaseErrors(result.error)
             }
             is Result.Success -> {
-
-
-                result.data.onEach {
-                    _totalBudget.update { it }
-                    Log.i("WalletViewModel", "retrieved totalBudget: $it  ")
-
+                result.data.onEach { budget ->
+                    _totalBudget.update { budget ?: "0.0" }
+                    Log.i("WalletViewModel", "retrieved totalBudget: $budget  ")
                 }.launchIn(viewModelScope)
             }
         }

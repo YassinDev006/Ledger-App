@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 fun AddWalletEditText(
     text: String,
     prefix : String? = null,
+    suffix : String? = null,
     keyboardType: KeyboardType,
     imeAction: ImeAction,
     placeHolder : String,
@@ -47,12 +48,13 @@ fun AddWalletEditText(
         textStyle = TextStyle(
             fontSize = 40.sp,
         ),
-        prefix = {
+        suffix = {
             Text(
-                text = prefix?:"",
+                text = suffix?:"",
                 fontSize = 40.sp
             )
         },
+
         isError = isError,
         supportingText = {
             Text(
@@ -60,6 +62,12 @@ fun AddWalletEditText(
             )
         },
         colors = OutlinedTextFieldDefaults.colors(
+
+            focusedSuffixColor = Color.Black,
+            disabledSuffixColor = Color.Black,
+            unfocusedSuffixColor = Color.Black,
+            errorSuffixColor = Color.Black,
+
             focusedTextColor = Color.Black,
             unfocusedTextColor = Color.Black,
 
