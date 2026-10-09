@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
@@ -73,6 +76,15 @@ fun HomeScreen(
             
             BudgetCard(totalBudget)
 
+            Text(
+                text = "Recent Transactions",
+                color = Color.Black,
+                fontSize = 20.sp,
+                modifier = Modifier.padding(start = 24.dp, top = 40.dp)
+
+            )
+
+            HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(horizontal = 24.dp), color = Color.Black)
         }
 
     }
@@ -102,7 +114,10 @@ fun BudgetCard(
         colors = CardDefaults.cardColors(
             containerColor = Color.Black,
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 12.dp
+        )
     ) {
 
         Column(
