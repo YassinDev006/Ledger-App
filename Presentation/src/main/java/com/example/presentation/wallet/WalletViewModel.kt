@@ -9,12 +9,13 @@ import com.example.data.wallet.Repo.WalletRepo
 import com.example.domain.domain.Entities.Validation
 import com.example.domain.domain.Entities.Wallet
 import com.example.domain.domain.useCases.ValidationUseCase
-import com.example.presentation.wallet.WalletNavigation.WalletNavigation
+import com.example.presentation.wallet.utils.WalletNavigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -40,11 +41,8 @@ class WalletViewModel @Inject constructor(
 
     val validationType = _validationType.asStateFlow()
 
-
-
-
-
-
+    private var _totalBudget = MutableStateFlow<String>("")
+    val totalBudget = _totalBudget.asStateFlow()
 
     fun getWallet(){
         when(val result = walletRepo.getWallets()){
@@ -53,13 +51,12 @@ class WalletViewModel @Inject constructor(
             }
             is Result.Success -> {
 
-                result.data.onEach { newListWallets ->
-
-                    _wallets.update { newListWallets }
-
-                    Log.i("wallet viewModel", "getWallet: data retrived succefully ")
-
-                }.launchIn(viewModelScope)
+                viewModelScope.launch {
+                    result.data.collect { walletsResult ->
+                        _wallets.update { walletsResult }
+                        Log.i("WalletViewModel", "getWallet: new wallets collected")
+                    }
+                }
             }
         }
     }
@@ -133,6 +130,22 @@ class WalletViewModel @Inject constructor(
 
     }
 
+    fun getTotalBudget(){
+        when(val result = walletRepo.getTotalBudget()){
+            is Result.Error -> {
+                logDataBaseErrors(result.error)
+            }
+            is Result.Success -> {
+
+
+                result.data.onEach {
+                    _totalBudget.update { it }
+                    Log.i("WalletViewModel", "retrieved totalBudget: $it  ")
+
+                }.launchIn(viewModelScope)
+            }
+        }
+    }
     private fun validate(wallet: Wallet) : Validation{
         val result = validationUseCase.invoke(wallet)
 

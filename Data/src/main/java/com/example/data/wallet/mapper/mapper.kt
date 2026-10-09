@@ -8,9 +8,10 @@ import android.database.sqlite.SQLiteFullException
 import ResultModel.DataBaseErrors
 import androidx.core.net.toUri
 
-fun Long.toDomain(): Double = this / 100.0
 
-fun Double.toEntity(): Long = (this * 100).toLong()
+fun String.toEntity() = (this.toDouble() * 100).toLong()
+
+fun Long.toDomain() = (this/100.0).toString()
 
 
 

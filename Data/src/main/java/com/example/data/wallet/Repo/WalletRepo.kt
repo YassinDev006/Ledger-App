@@ -4,6 +4,7 @@ import ResultModel.DataBaseErrors
 import ResultModel.Result
 import com.example.data.wallet.DataSource.DAOs.WalletDao
 import com.example.data.wallet.mapper.toDataBaseError
+import com.example.data.wallet.mapper.toDomain
 import com.example.data.wallet.mapper.toWallet
 import com.example.data.wallet.mapper.toWalletEntity
 import com.example.domain.domain.Entities.Wallet
@@ -80,6 +81,27 @@ class WalletRepo @Inject constructor(
              Result.Error(errorType)
 
         }
+    }
+
+    fun getTotalBudget() : Result<Flow<String?>, DataBaseErrors>{
+
+         return try {
+            val result = walletDao.getTotalBudget()
+
+
+             Result.Success(result.map {
+                 it?.toDomain()
+             })
+
+
+        }catch (e : Exception){
+            val errorType = e.toDataBaseError()
+
+             Result.Error(errorType)
+
+        }
+
+
     }
 
 

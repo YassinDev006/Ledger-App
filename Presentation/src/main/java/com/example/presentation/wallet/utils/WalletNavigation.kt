@@ -1,4 +1,4 @@
-package com.example.presentation.wallet.WalletNavigation
+package com.example.presentation.wallet.utils
 
 sealed interface WalletNavigation {
     data object NavigateToWalletScreen : WalletNavigation
